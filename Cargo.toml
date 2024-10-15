@@ -1,0 +1,20 @@
+[package]
+name = "expand-tilde"
+version = "0.1.0"
+authors = ["nekitdev <nekit@nekit.dev>"]
+edition = "2021"
+description = "Expanding tildes in paths."
+documentation = "https://docs.rs/expand-tilde"
+readme = "REAMDE.md"
+repository = "https://github.com/nekitdev/expand-tilde"
+license = "MIT"
+keywords = ["path", "tilde", "expand"]
+
+[dependencies.home]
+version = "0.5.9"
+
+[dependencies.miette]
+version = "7.2.0"
+
+[dependencies.thiserror]
+version = "1.0.64"
