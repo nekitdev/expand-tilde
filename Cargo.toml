@@ -11,10 +11,10 @@ license = "MIT"
 keywords = ["path", "tilde", "expand"]
 
 [dependencies.home]
-version = "0.5.9"
+version = "0.5.11"
 
 [dependencies.miette]
-version = "7.2.0"
+version = "7.4.0"
 
 [dependencies.thiserror]
-version = "2.0.0"
+version = "2.0.9"
