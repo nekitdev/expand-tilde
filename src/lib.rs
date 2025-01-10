@@ -9,7 +9,7 @@
 //! # Example
 //!
 //! There are two main ways to expand tildes with this crate;
-//! the first is to use the [`expand_tilde`] function directly:
+//! the first is to use the [`expand_tilde`] with references:
 //!
 //! ```
 //! use expand_tilde::expand_tilde;
@@ -91,47 +91,37 @@ pub fn home_dir() -> Result<PathBuf> {
     }
 }
 
-/// Expands the tilde (`~`) component to the home directory.
-///
-/// This function is similar to [`expand_tilde_path`], except it is generic over the path type.
+/// Expands the tilde (`~`) component of the given path to the home directory.
 ///
 /// # Errors
 ///
-/// See [`expand_tilde_path`] for more information.
+/// This function propagates errors returned by [`home_dir`].
 pub fn expand_tilde<P: AsRef<Path> + ?Sized>(path: &P) -> Result<Cow<'_, Path>> {
-    expand_tilde_path(path.as_ref())
+    fn expand_tilde_inner(path: &Path) -> Result<Cow<'_, Path>> {
+        path.strip_prefix(TILDE).map_or_else(
+            |_| Ok(Cow::Borrowed(path)),
+            |stripped| home_dir().map(|dir| Cow::Owned(dir.join(stripped))),
+        )
+    }
+
+    expand_tilde_inner(path.as_ref())
 }
 
-/// Expands the tilde (`~`) component of the [`Path`] to the home directory.
-///
-/// # Errors
-///
-/// Returns:
-///
-/// - [`Error::NotFound`] if the home directory cannot be found.
-/// - [`Error::Empty`] if the home directory is empty.
-pub fn expand_tilde_path(path: &Path) -> Result<Cow<'_, Path>> {
-    path.strip_prefix(TILDE).map_or_else(
-        |_| Ok(Cow::Borrowed(path)),
-        |stripped| home_dir().map(|dir| Cow::Owned(dir.join(stripped))),
-    )
-}
-
-mod private {
+mod sealed {
     pub trait Sealed {}
 }
 
 /// Represents values that can be tilde-expanded (sealed extension trait).
-pub trait ExpandTilde: private::Sealed {
+pub trait ExpandTilde: sealed::Sealed {
     /// Expands the tilde (`~`) component to the home directory.
     ///
     /// # Errors
     ///
-    /// See [`expand_tilde_path`] for more information.
+    /// See [`expand_tilde`] for more information.
     fn expand_tilde(&self) -> Result<Cow<'_, Path>>;
 }
 
-impl<P: AsRef<Path>> private::Sealed for P {}
+impl<P: AsRef<Path>> sealed::Sealed for P {}
 
 impl<P: AsRef<Path>> ExpandTilde for P {
     fn expand_tilde(&self) -> Result<Cow<'_, Path>> {
