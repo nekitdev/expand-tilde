@@ -107,6 +107,15 @@ pub fn expand_tilde<P: AsRef<Path> + ?Sized>(path: &P) -> Result<Cow<'_, Path>> 
     expand_tilde_inner(path.as_ref())
 }
 
+/// Similar to [`expand_tilde`], but accepts the path by value and returns owned paths.
+///
+/// # Errors
+///
+/// This function propagates errors returned by [`expand_tilde`].
+pub fn expand_tilde_owned<P: AsRef<Path>>(path: P) -> Result<PathBuf> {
+    expand_tilde(path.as_ref()).map(Cow::into_owned)
+}
+
 mod sealed {
     pub trait Sealed {}
 }
