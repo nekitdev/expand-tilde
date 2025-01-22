@@ -2,6 +2,13 @@
 
 <!-- changelogging: start -->
 
+## [0.4.0](https://github.com/nekitdev/expand-tilde/tree/v0.4.0) (2025-01-22)
+
+### Features
+
+- Added `expand_tilde_owned` function, which accepts the path by value and returns owned paths.
+  ([#4](https://github.com/nekitdev/expand-tilde/pull/4))
+
 ## [0.3.0](https://github.com/nekitdev/expand-tilde/tree/v0.3.0) (2025-01-11)
 
 ### Removals
