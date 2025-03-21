@@ -43,26 +43,34 @@ use std::{
     path::{Path, PathBuf},
 };
 
+#[cfg(feature = "diagnostics")]
 use miette::Diagnostic;
 use thiserror::Error;
 
 /// Represents errors that can occur during `~` expansion.
 ///
 /// The only error that can occur is if the home directory cannot be found.
-#[derive(Debug, Error, Diagnostic)]
+#[derive(Debug, Error)]
+#[cfg_attr(feature = "diagnostics", derive(Diagnostic))]
 pub enum Error {
     /// The home directory cannot be found.
     #[error("home directory not found")]
-    #[diagnostic(
-        code(expand_tilde::not_found),
-        help("make sure the home directory exists")
+    #[cfg_attr(
+        feature = "diagnostics",
+        diagnostic(
+            code(expand_tilde::not_found),
+            help("make sure the home directory exists")
+        )
     )]
     NotFound,
     /// The home directory is empty.
     #[error("home directory is empty")]
-    #[diagnostic(
-        code(expand_tilde::empty),
-        help("make sure the home directory is non-empty")
+    #[cfg_attr(
+        feature = "diagnostics",
+        diagnostic(
+            code(expand_tilde::empty),
+            help("make sure the home directory is non-empty")
+        )
     )]
     Empty,
 }

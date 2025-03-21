@@ -1,6 +1,6 @@
 [package]
 name = "expand-tilde"
-version = "0.4.0"
+version = "0.5.0"
 authors = ["nekitdev <nekit@nekit.dev>"]
 edition = "2021"
 description = "Expanding tildes in paths."
@@ -14,7 +14,12 @@ keywords = ["path", "tilde", "expand"]
 version = "0.5.11"
 
 [dependencies.miette]
-version = "7.4.0"
+version = "7.5.0"
+optional = true
 
 [dependencies.thiserror]
-version = "2.0.11"
+version = "2.0.12"
+
+[features]
+default = []
+diagnostics = ["dep:miette"]
