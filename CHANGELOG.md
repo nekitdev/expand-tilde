@@ -2,6 +2,12 @@
 
 <!-- changelogging: start -->
 
+## [0.5.0](https://github.com/nekitdev/expand-tilde/tree/v0.5.0) (2025-03-21)
+
+### Features
+
+- Added `diagnostics` feature that enables `miette` for error reporting.
+
 ## [0.4.0](https://github.com/nekitdev/expand-tilde/tree/v0.4.0) (2025-01-22)
 
 ### Features
