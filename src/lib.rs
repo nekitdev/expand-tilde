@@ -136,6 +136,13 @@ pub trait ExpandTilde: sealed::Sealed {
     ///
     /// See [`expand_tilde`] for more information.
     fn expand_tilde(&self) -> Result<Cow<'_, Path>>;
+
+    /// Similar to [`Self::expand_tilde`], but returns owned paths.
+    ///
+    /// # Errors
+    ///
+    /// See [`expand_tilde_owned`] for more information.
+    fn expand_tilde_owned(&self) -> Result<PathBuf>;
 }
 
 impl<P: AsRef<Path>> sealed::Sealed for P {}
@@ -143,6 +150,10 @@ impl<P: AsRef<Path>> sealed::Sealed for P {}
 impl<P: AsRef<Path>> ExpandTilde for P {
     fn expand_tilde(&self) -> Result<Cow<'_, Path>> {
         expand_tilde(self)
+    }
+
+    fn expand_tilde_owned(&self) -> Result<PathBuf> {
+        expand_tilde_owned(self)
     }
 }
 
