@@ -2,6 +2,12 @@
 
 <!-- changelogging: start -->
 
+## [0.6.1](https://github.com/nekitdev/expand-tilde/tree/v0.6.1) (2025-05-15)
+
+### Changes
+
+- Added `?Sized` bound in `ExpandTilde` implementation.
+
 ## [0.6.0](https://github.com/nekitdev/expand-tilde/tree/v0.6.0) (2025-03-31)
 
 ### Features
