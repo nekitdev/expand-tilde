@@ -1,8 +1,8 @@
 [package]
 name = "expand-tilde"
-version = "0.6.0"
+version = "0.6.1"
 authors = ["nekitdev <nekit@nekit.dev>"]
-edition = "2021"
+edition = "2024"
 description = "Expanding tildes in paths."
 documentation = "https://docs.rs/expand-tilde"
 readme = "README.md"

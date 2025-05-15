@@ -145,9 +145,9 @@ pub trait ExpandTilde: sealed::Sealed {
     fn expand_tilde_owned(&self) -> Result<PathBuf>;
 }
 
-impl<P: AsRef<Path>> sealed::Sealed for P {}
+impl<P: AsRef<Path> + ?Sized> sealed::Sealed for P {}
 
-impl<P: AsRef<Path>> ExpandTilde for P {
+impl<P: AsRef<Path> + ?Sized> ExpandTilde for P {
     fn expand_tilde(&self) -> Result<Cow<'_, Path>> {
         expand_tilde(self)
     }
